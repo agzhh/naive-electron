@@ -1,11 +1,12 @@
 @import '@layui/layer-vue/lib/index.css';
 
-html, body {
+html,
+body {
   margin: 0px;
   padding: 0px;
   height: 100%;
   width: 100%;
-  font-family: "Microsoft Yahei", -apple-system, Ubuntu, sans-serif;
+  font-family: 'Microsoft Yahei', -apple-system, Ubuntu, sans-serif;
 }
 
 ::-webkit-scrollbar {

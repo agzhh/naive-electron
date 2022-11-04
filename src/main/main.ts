@@ -1,4 +1,4 @@
-import { app, BrowserWindow} from 'electron'
+import { app, BrowserWindow } from 'electron';
 
 /**
  * mainWindow 被设置成一个全局变量，
@@ -11,7 +11,7 @@ let mainWindow: BrowserWindow;
  * 在 Electron 初始化完成后，app 对象的 ready 事件被触发，
  * 这里我们使用 app.whenReady() 这个 Promise 方法来等待 ready 事件的发生
  */
-app.whenReady().then(()=>{
-    mainWindow = new BrowserWindow();
-    mainWindow.loadURL(process.argv[2]);
-})
+app.whenReady().then(() => {
+  mainWindow = new BrowserWindow();
+  mainWindow.loadURL(process.argv[2]);
+});
