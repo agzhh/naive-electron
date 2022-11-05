@@ -1,6 +1,7 @@
 import { BrowserWindowConstructorOptions } from 'electron';
 
 export const windowConfig: BrowserWindowConstructorOptions = {
+  frame: false, // 是否展示默认标题栏
   webPreferences: {
     nodeIntegration: true, // 把 Node.js 环境集成到渲染进程中，
     webSecurity: false, // 禁用掉了浏览器的跨域安全特性（同源策略）

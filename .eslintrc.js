@@ -16,7 +16,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json', './tsconfig.node.json']
   },
-  plugins: ['vue'],
+  plugins: ['vue', '@typescript-eslint'],
   rules: {
     'import/prefer-default-export': 'off', // 关闭导出一个只能用export default 的限制
     'import/extensions': 'off', // 解决eslint不识别 @ 别名

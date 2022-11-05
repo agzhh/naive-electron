@@ -5,7 +5,7 @@ import setupStore from '@/renderer/store';
 import { setupNaive } from '@/renderer/plugins/naive';
 import '@/renderer/assets/style/main.css';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = createApp(App);
   // 注册全局常用的 naive-ui 组件
   setupNaive(app);
