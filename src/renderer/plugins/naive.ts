@@ -69,6 +69,7 @@ import {
   NTreeSelect,
   NPopconfirm,
   NFormItemGi,
+  NGlobalStyle,
   NButtonGroup,
   NLayoutSider,
   NRadioButton,
@@ -98,6 +99,7 @@ const naive = create({
     NButton,
     NForm,
     NFormItem,
+    NGlobalStyle,
     NCheckboxGroup,
     NCheckbox,
     NIcon,
@@ -180,7 +182,7 @@ const naive = create({
   ]
 });
 
-export function setupNaive(app: App) {
+export function setupNaive(app: App): void {
   app.use(naive);
   app.use(layLayer);
 }

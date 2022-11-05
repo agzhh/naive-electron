@@ -6,7 +6,13 @@
 </template>
 
 <script setup lang="ts">
+import fS from 'fs';
+import { ipcRenderer } from 'electron';
 import { zhCN, dateZhCN } from 'naive-ui';
+
+console.log(process);
+console.log(fS);
+console.log(ipcRenderer);
 </script>
 
 <style scoped></style>
