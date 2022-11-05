@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import { windowConfig } from '@/main/common/window.config';
+import { CustomScheme } from '@/main/CustomScheme';
 
 /**
  * 设置渲染进程开发者调试工具的警告，这里设置为 true 就不会再显示任何警告了。
@@ -23,5 +24,10 @@ void app.whenReady().then(() => {
   mainWindow = new BrowserWindow(windowConfig);
   // 打开调试窗口
   mainWindow.webContents.openDevTools({ mode: 'undocked' });
-  void mainWindow.loadURL(process.argv[2]);
+  if (process.argv[2] !== '' && process.argv[2] !== null && process.argv[2] !== undefined) {
+    void mainWindow.loadURL(process.argv[2]);
+  } else {
+    CustomScheme.registerScheme();
+    void mainWindow.loadURL(`app://index.html`);
+  }
 });

@@ -35,6 +35,7 @@ module.exports = {
         ignorePropertyModificationsFor: ['config', 'app', 'state']
       }
     ],
-    'newline-per-chained-call': 'off' // 允许使用链式调用
+    'newline-per-chained-call': 'off', // 允许使用链式调用
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 };
