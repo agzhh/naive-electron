@@ -30,6 +30,11 @@ const openSonWin = async () => {
 window.addEventListener('message', (e) => {
   console.log('子窗口消息', e);
 });
+
+// 监听子窗口发送过来的消息
+window.addEventListener('message', (e) => {
+  console.log('子窗口消息', e);
+});
 </script>
 
 <style scoped></style>

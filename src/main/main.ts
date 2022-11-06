@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import { CustomScheme } from './CustomScheme';
 import { CommonWindowEvent } from './CommonWindowEvent';
 import { windowConfig } from '@/main/common/window.config';
+import { CommonTray } from '@/main/CommonTray';
 
 /**
  * ELECTRON_DISABLE_SECURITY_WARNINGS 用于设置渲染进程开发者调试工具的警告，这里设置为 true 就不会再显示任何警告了。
@@ -16,7 +17,9 @@ process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
  * 每当有一个窗口被创建成功后，这个事件就会被触发，
  */
 app.on('browser-window-created', (e, win) => {
+  // 监听窗口打开
   CommonWindowEvent.regWinEvent(win);
+  // 注册窗口快捷键
   CommonWindowEvent.regShortcuts(win);
 });
 
@@ -43,8 +46,10 @@ void app.whenReady().then(() => {
     void mainWindow.loadURL(`app://index.html`);
   }
 
-  // 注册窗口监听事件
+  // 注册窗口监听事件, 全局只需要注册一次
   CommonWindowEvent.listen();
+  // 为窗口添加系统托盘
+  CommonTray.regWinTray(mainWindow);
 
   /**
    * 监听主窗口关闭

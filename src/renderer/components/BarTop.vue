@@ -25,7 +25,7 @@ const isMaximized = ref(false); // 是否是最大化
 
 // 关闭窗口
 const closeWindow = () => {
-  ipcRenderer.invoke('closeWindow');
+  ipcRenderer.invoke('hideWindow');
 };
 
 // 窗口最大化
@@ -61,8 +61,8 @@ onUnmounted(() => {
 <style scoped lang="less">
 .topBar {
   display: flex;
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  line-height: 30px;
   -webkit-app-region: drag; // 设置当前区域可以拖动
   width: 100%;
 }
@@ -70,16 +70,11 @@ onUnmounted(() => {
 .winTitle {
   flex: 1;
   padding-left: 12px;
-  font-size: 14px;
+  font-size: 13px;
   color: #888;
   display: flex;
   align-items: center;
   height: 100%;
-
-  img {
-    height: 15px;
-    //border-radius: 50%;
-  }
 }
 
 .winTool {
