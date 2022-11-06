@@ -36,6 +36,6 @@ module.exports = {
       }
     ],
     'newline-per-chained-call': 'off', // 允许使用链式调用
-    '@typescript-eslint/explicit-module-boundary-types': 'off'
+    '@typescript-eslint/explicit-function-return-type': 'off'
   }
 };

@@ -5,8 +5,13 @@ const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/home' },
   {
     path: '/home',
-    component: () => import('@/renderer/views/home/index.vue'),
+    component: async () => await import('@/renderer/views/home/index.vue'),
     meta: { title: '首页' }
+  },
+  {
+    path: '/setting',
+    component: async () => await import('@/renderer/views/setting/index.vue'),
+    meta: { title: '设置' }
   }
 ];
 
@@ -15,6 +20,6 @@ const router = createRouter({
   routes
 });
 
-export default function setupRouter(app: App) {
+export default function setupRouter(app: App): void {
   app.use(router);
 }

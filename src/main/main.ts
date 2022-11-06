@@ -17,6 +17,7 @@ process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
  */
 app.on('browser-window-created', (e, win) => {
   CommonWindowEvent.regWinEvent(win);
+  CommonWindowEvent.regShortcuts(win);
 });
 
 // todo =>
@@ -33,7 +34,7 @@ void app.whenReady().then(() => {
     minWidth: 800,
     minHeight: 550
   });
-  // mainWindow.setMenu(null) // 去除默认菜单栏
+  // mainWindow.setMenu(null); // 去除默认菜单栏
   // mainWindow.webContents.openDevTools({mode: 'undocked'}) // 打开调试控制台
   if (process.argv[2] !== '' && process.argv[2] !== null && process.argv[2] !== undefined) {
     void mainWindow.loadURL(process.argv[2]);

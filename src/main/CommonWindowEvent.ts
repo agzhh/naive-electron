@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, app } from 'electron';
+import { BrowserWindow, ipcMain, app, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
 import { windowConfig } from '@/main/common/window.config';
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -14,6 +14,40 @@ export class CommonWindowEvent {
     return BrowserWindow.fromWebContents(event.sender);
   }
 
+  /**
+   * 为窗口注册快捷键
+   * @param win
+   */
+  public static regShortcuts(win: BrowserWindow): void {
+    const menu: Array<MenuItemConstructorOptions | MenuItem> = [
+      {
+        label: '工具',
+        submenu: [
+          {
+            label: '重新加载',
+            accelerator: 'CommandOrControl+Shift+f5',
+            role: 'reload'
+          },
+          {
+            label: '打开调试工具',
+            accelerator: 'CommandOrControl+Shift+f12',
+            click: () => {
+              win.webContents.openDevTools(); // 通过主进程共享的mainWindow打开调试工具
+            }
+          }
+        ]
+      }
+    ];
+
+    /* 设置右键菜单 */
+    // 得到菜单模板
+    const menuTemp = Menu.buildFromTemplate(menu);
+    win.setMenu(menuTemp);
+  }
+
+  /**
+   * 监听渲染进程发过来的消息
+   */
   public static listen(): void {
     // 窗口最小化
     ipcMain.handle('minimizeWindow', (e) => {
@@ -68,7 +102,7 @@ export class CommonWindowEvent {
       win.webContents.send('windowUnmaximized');
     });
 
-    win.webContents.openDevTools({ mode: 'undocked' }); // 打开调试控制台
+    // win.webContents.openDevTools({ mode: 'undocked' }); // 打开调试控制台
 
     win.webContents.setWindowOpenHandler((param) => {
       const config = JSON.parse(JSON.stringify({ ...windowConfig, show: true }));
