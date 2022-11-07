@@ -102,6 +102,11 @@ export class CommonWindowEvent {
       win.webContents.send('windowUnmaximized');
     });
 
+    // 监听窗口卸载
+    win.on('close', () => {
+      win.webContents.send('windowClose');
+    });
+
     // win.webContents.openDevTools({ mode: 'undocked' }); // 打开调试控制台
 
     win.webContents.setWindowOpenHandler((param) => {

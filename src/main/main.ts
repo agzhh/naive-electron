@@ -39,7 +39,7 @@ app.whenReady().then(() => {
   });
   // mainWindow.setMenu(null); // 去除默认菜单栏
   // mainWindow.webContents.openDevTools({mode: 'undocked'}) // 打开调试控制台
-  if (process.argv[2] !== '' && process.argv[2] !== null && process.argv[2] !== undefined) {
+  if (process.argv[2]) {
     mainWindow.loadURL(process.argv[2]);
   } else {
     CustomScheme.registerScheme();

@@ -39,7 +39,6 @@ export class CustomScheme {
         extension = '.html';
       }
       const tarFile = path.join(__dirname, pathName);
-      // eslint-disable-next-line n/no-callback-literal
       callback({
         statusCode: 200,
         headers: { 'content-type': this.getMimeType(extension) },
