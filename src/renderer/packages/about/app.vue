@@ -10,15 +10,26 @@
         </div>
       </div>
     </div>
-    <div class="container-body"></div>
+    <div class="container-body">
+      <n-h1>Naive Electron</n-h1>
+      <n-descriptions label-placement="top" bordered :column="2" label-align="center" :content-style="{ textAlign: 'center' }">
+        <n-descriptions-item label="node-version"> {{ systemVersion.node }} </n-descriptions-item>
+        <n-descriptions-item label="chrome-version"> {{ systemVersion.chrome }} </n-descriptions-item>
+        <n-descriptions-item label="electron-version"> {{ systemVersion.electron }} </n-descriptions-item>
+        <n-descriptions-item label="v8-version"> {{ systemVersion.v8 }} </n-descriptions-item>
+      </n-descriptions>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { NH1, NDescriptions, NDescriptionsItem } from 'naive-ui';
 import { onMounted, onUnmounted } from 'vue';
 import { ipcRenderer } from 'electron';
 import { dialogReady } from '@/renderer/common/Dialog';
 import naivelogo from '@/renderer/assets/images/naivelogo.svg';
+
+const systemVersion = process.versions;
 
 const aboutClone = () => {
   // 子窗口为父窗口发消息
@@ -112,7 +123,11 @@ onUnmounted(() => {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    background: rgb(245, 245, 245);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //justify-content: center;
+    //background: rgb(245, 245, 245);
     //background-color: red;
   }
 }

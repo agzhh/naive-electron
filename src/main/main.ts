@@ -23,9 +23,13 @@ app.on('browser-window-created', (e, win) => {
   CommonWindowEvent.regShortcuts(win);
 });
 
-// todo =>
-
 let mainWindow: BrowserWindow | null;
+
+// 验证当前实例是唯一实例时会触发, 当判断方法被执行时，退出正在启动的应用
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+}
 
 // 当 electron 初始化完成
 app.whenReady().then(() => {

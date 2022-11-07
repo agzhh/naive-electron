@@ -17,7 +17,7 @@ console.log('--------', process);
 
 const openAbout = async () => {
   if (!aboutWin) {
-    const config = { modal: false, width: 360, height: 260, resizable: false, webPreferences: { webviewTag: false } };
+    const config = { modal: false, width: 400, height: 320, resizable: false, webPreferences: { webviewTag: false } };
     aboutWin = await createDialog(`/about.html`, config);
     // if (process.argv[2]) {
     // } else {
