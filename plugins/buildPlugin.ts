@@ -116,10 +116,10 @@ export const buildPlugin = (): Plugin => {
   return {
     name: 'build-plugin',
     closeBundle: () => {
-      const buildObj = new BuildObj();
-      buildObj.buildMain();
-      buildObj.preparePackageJson();
-      buildObj.buildInstaller();
+      // const buildObj = new BuildObj();
+      BuildObj.buildMain();
+      BuildObj.preparePackageJson();
+      BuildObj.buildInstaller();
     }
   };
 };
