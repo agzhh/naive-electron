@@ -5,17 +5,17 @@ const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/mainView' },
   {
     path: '/mainView',
-    component: async () => await import('@/renderer/views/mainView/index.vue'),
+    component: () => import('@/renderer/views/mainView/index.vue'),
     meta: { title: '主页面' }
   },
   {
     path: '/home',
-    component: async () => await import('@/renderer/views/home/index.vue'),
+    component: () => import('@/renderer/views/home/index.vue'),
     meta: { title: '首页' }
   },
   {
     path: '/setting',
-    component: async () => await import('@/renderer/views/setting/index.vue'),
+    component: () => import('@/renderer/views/setting/index.vue'),
     meta: { title: '设置' }
   }
 ];

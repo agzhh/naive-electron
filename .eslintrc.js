@@ -5,16 +5,14 @@ module.exports = {
     node: true
   },
   extends: [
+    'airbnb-base',
     'plugin:vue/vue3-essential',
-    'standard-with-typescript',
     'plugin:prettier/recommended' // 添加 prettier 插件
   ],
-  overrides: [],
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    tsconfigRootDir: __dirname,
-    project: ['./tsconfig.json', './tsconfig.node.json']
+    ecmaVersion: 12,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module'
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {

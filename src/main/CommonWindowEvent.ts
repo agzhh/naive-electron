@@ -108,15 +108,15 @@ export class CommonWindowEvent {
       const config = JSON.parse(JSON.stringify({ ...windowConfig, show: true }));
       // 开发者自定义窗口配置对象
       const features = JSON.parse(param.features);
-      for (const p in features) {
+      Object.keys(features).forEach((p) => {
         if (p === 'webPreferences') {
-          for (const p2 in features.webPreferences) {
+          Object.keys(features.webPreferences).forEach((p2) => {
             config.webPreferences[p2] = features.webPreferences[p2];
-          }
+          });
         } else {
           config[p] = features[p];
         }
-      }
+      });
       if (config.modal === true) config.parent = win;
       // 允许打开窗口，并传递窗口配置对象
       return { action: 'allow', overrideBrowserWindowOptions: config };

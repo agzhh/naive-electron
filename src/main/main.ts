@@ -28,7 +28,7 @@ app.on('browser-window-created', (e, win) => {
 let mainWindow: BrowserWindow | null;
 
 // 当 electron 初始化完成
-void app.whenReady().then(() => {
+app.whenReady().then(() => {
   mainWindow = new BrowserWindow({
     ...windowConfig,
     show: false,
@@ -40,21 +40,27 @@ void app.whenReady().then(() => {
   // mainWindow.setMenu(null); // 去除默认菜单栏
   // mainWindow.webContents.openDevTools({mode: 'undocked'}) // 打开调试控制台
   if (process.argv[2] !== '' && process.argv[2] !== null && process.argv[2] !== undefined) {
-    void mainWindow.loadURL(process.argv[2]);
+    mainWindow.loadURL(process.argv[2]);
   } else {
     CustomScheme.registerScheme();
-    void mainWindow.loadURL(`app://index.html`);
+    mainWindow.loadURL(`app://index.html`);
   }
 
   // 注册窗口监听事件, 全局只需要注册一次
   CommonWindowEvent.listen();
+
   // 为窗口添加系统托盘
   CommonTray.regWinTray(mainWindow);
 
   /**
    * 监听主窗口关闭
    */
-  mainWindow.on('close', () => {
+  mainWindow.on('close', (event) => {
+    event.preventDefault();
+    mainWindow?.hide();
+  });
+
+  mainWindow.on('closed', () => {
     mainWindow = null;
   });
 });

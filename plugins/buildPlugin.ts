@@ -11,7 +11,7 @@ class BuildObj {
    * 不过由于此处是在为生产环境编译代码，所以我们增加了minify: true 配置，生成压缩后的代码。
    * 如果你希望与开发环境复用编译主进程的代码，也可以把这部分代码抽象成一个独立的方法。
    * */
-  buildMain(): void {
+  static buildMain() {
     esbuild.buildSync({
       entryPoints: ['./src/main/main.ts'], // 入口
       bundle: true, // 打包
@@ -35,7 +35,7 @@ class BuildObj {
    * 这段脚本还明确指定了 Electron 的版本号，如果 Electron 的版本号前面有"^"符号的话，需把它删掉。
    * 这是 electron-builder 的一个 Bug，这个 bug 导致 electron-builder 无法识别带 ^ 或 ~ 符号的版本号。
    */
-  preparePackageJson(): void {
+  static preparePackageJson() {
     // 获取本地 package.json
     const pkgJsonPath = path.join(process.cwd(), 'package.json');
     // 获取本地 package.json 内容
@@ -66,7 +66,7 @@ class BuildObj {
    *
    * [官方文档](https://www.electron.build/)
    */
-  async buildInstaller(): Promise<string[]> {
+  static async buildInstaller(): Promise<string[]> {
     const options = {
       config: {
         directories: {
@@ -107,7 +107,7 @@ class BuildObj {
       },
       project: process.cwd()
     };
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line global-require
     return require('electron-builder').build(options);
   }
 }
@@ -119,7 +119,7 @@ export const buildPlugin = (): Plugin => {
       const buildObj = new BuildObj();
       buildObj.buildMain();
       buildObj.preparePackageJson();
-      void buildObj.buildInstaller();
+      buildObj.buildInstaller();
     }
   };
 };

@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, Tray } from 'electron';
+import { BrowserWindow, Menu, Tray, app } from 'electron';
 import path from 'path';
 
 export class CommonTray {
@@ -7,9 +7,10 @@ export class CommonTray {
     const contextMenu = Menu.buildFromTemplate([
       {
         label: '  应用退出  ',
-        role: 'quit',
         click: () => {
-          win?.close();
+          win.destroy();
+          app.quit();
+          app.exit(0);
         }
       },
       {

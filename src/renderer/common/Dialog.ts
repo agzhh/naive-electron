@@ -1,5 +1,5 @@
 export const createDialog = async (url: string, config: any): Promise<Window> => {
-  return await new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const windowProxy = window.open(url, '_blank', JSON.stringify(config));
     const readyHandler = (e: any): void => {
       const msg = e.data;
