@@ -47,5 +47,10 @@ body {
   height: 100%;
   width: 100%;
   /*设置文字不可以选中*/
-  user-select: none;
+  /*user-select: none;*/
+}
+
+::selection {
+  background-color: #18a058;
+  color: #ffffff;
 }

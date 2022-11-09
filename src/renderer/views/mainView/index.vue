@@ -1,61 +1,18 @@
 <template>
   <div class="container">
-    <bar-top>
-      <img :src="naivelogo" class="logo" />
-      <span style="margin-left: 5px">盘古</span>
-    </bar-top>
+    <bar-left></bar-left>
     <div class="container-body">
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
-      <h1>1111</h1>
+      <bar-top />
+      <div class="container-body-current">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import BarTop from '@/renderer/components/BarTop.vue';
-import naivelogo from '@/renderer/assets/images/naivelogo.svg';
+import BarLeft from '@/renderer/components/BarLeft.vue';
 </script>
 
 <style scoped lang="less">
@@ -63,20 +20,25 @@ import naivelogo from '@/renderer/assets/images/naivelogo.svg';
   height: 100vh;
   width: 100vw;
   display: flex;
-  flex-direction: column;
-
-  .logo {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-  }
+  //flex-direction: column;
 }
 
 .container-body {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  background: rgb(245, 245, 245);
-  //background-color: red;
+  background: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+
+  .container-body-current {
+    flex: 1;
+    border-top: 1px solid #e6e6e6;
+    box-sizing: border-box;
+    display: flex;
+    //margin-top: -1px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 </style>

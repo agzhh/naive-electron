@@ -65,6 +65,7 @@ onUnmounted(() => {
   line-height: 30px;
   -webkit-app-region: drag; // 设置当前区域可以拖动
   width: 100%;
+  background-color: #ffffff;
 }
 
 .winTitle {

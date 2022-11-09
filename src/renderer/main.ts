@@ -4,6 +4,7 @@ import setupRouter from '@/renderer/router';
 import setupStore from '@/renderer/store';
 import { setupNaive } from '@/renderer/plugins/naive';
 import '@/renderer/assets/style/main.css';
+import { setupIcon } from '@/renderer/plugins/icon';
 
 async function bootstrap(): Promise<void> {
   const app = createApp(App);
@@ -11,6 +12,8 @@ async function bootstrap(): Promise<void> {
   setupNaive(app);
   // 挂载状态管理 pinia
   setupStore(app);
+  // 挂载图标
+  setupIcon(app);
   // 挂载路由
   await setupRouter(app);
   app.mount('#app', true);

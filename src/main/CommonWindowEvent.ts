@@ -90,6 +90,8 @@ export class CommonWindowEvent {
     ipcMain.handle('getPath', (e, name: any) => {
       return app.getPath(name);
     });
+
+    // ipcMain.on('')
   }
 
   public static regWinEvent(win: BrowserWindow): void {
