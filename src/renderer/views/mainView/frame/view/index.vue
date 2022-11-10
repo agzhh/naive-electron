@@ -1,19 +1,17 @@
 <template>
-  <n-button type="info" @click="openBili">打开哔哩哔哩</n-button>
-  <n-button @click="removeBili">移除哔哩哔哩</n-button>
-  <iframe :src="iframeUrl" v-if="iframeUrl" style="width: 100%; height: 100%"></iframe>
+  <iframe :ref="iframeRef" @load="loaded" :src="iframeUrl" style="width: 100%; height: 100%" frameborder="no"></iframe>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { layer } from '@layui/layer-vue';
 
-const iframeUrl = ref('');
+const iframeRef = ref();
+const iframeUrl = ref('https://www.bilibili.com/');
+const layerIndex = layer.load(0);
 
-const openBili = () => {
-  iframeUrl.value = 'https://www.bilibili.com/';
-};
-const removeBili = () => {
-  iframeUrl.value = '';
+const loaded = () => {
+  layer.close(layerIndex);
 };
 </script>
 

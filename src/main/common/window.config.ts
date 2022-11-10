@@ -2,7 +2,7 @@ import { BrowserWindowConstructorOptions } from 'electron';
 
 export const windowConfig: BrowserWindowConstructorOptions = {
   // show: false, // 默认不显示
-  frame: false, // 关闭窗口默认头部
+  // frame: false, // 关闭窗口默认头部
   webPreferences: {
     // nativeWindowOpen: true,
     nodeIntegration: true, // common把 Node.js 环境集成到渲染进程中，

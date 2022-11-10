@@ -13,16 +13,10 @@ import { createDialog } from '@/renderer/common/Dialog';
 
 let aboutWin: Window | null;
 
-console.log('--------', process);
-
 const openAbout = async () => {
   if (!aboutWin) {
-    const config = { modal: false, width: 400, height: 320, resizable: false, webPreferences: { webviewTag: false } };
+    const config = { frame: false, modal: false, width: 400, height: 320, resizable: false, webPreferences: { webviewTag: false } };
     aboutWin = await createDialog(`/about.html`, config);
-    // if (process.argv[2]) {
-    // } else {
-    //   aboutWin = await createDialog(`app://about.html`, config);
-    // }
   } else {
     aboutWin.postMessage({ msgName: 'showAbout', value: '打开关于页面' });
   }

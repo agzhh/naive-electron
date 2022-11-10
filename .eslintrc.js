@@ -35,6 +35,7 @@ module.exports = {
     ],
     'newline-per-chained-call': 'off', // 允许使用链式调用
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-extraneous-class': 'off'
+    '@typescript-eslint/no-extraneous-class': 'off',
+    'prefer-destructuring': ['error', { object: true, array: false }] // 解除强制数组结构
   }
 };

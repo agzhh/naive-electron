@@ -2,16 +2,16 @@
   <div class="topBar">
     <div class="winTitle"><slot></slot></div>
     <div class="winTool">
-      <div @click="minimizeMainWindow">
+      <div @click="minimizeWindow">
         <i class="icon icon-minimize" />
       </div>
-      <div v-if="isMaximized" @click="unmaximizeMainWindow">
+      <div v-if="isMaximized" @click="unmaximizeWindow">
         <i class="icon icon-restore" />
       </div>
-      <div v-else @click="maxmizeMainWin">
+      <div v-else @click="maxmizeWindow">
         <i class="icon icon-maximize" />
       </div>
-      <div @click="closeWindow">
+      <div @click="hideWindow">
         <i class="icon icon-close" />
       </div>
     </div>
@@ -20,28 +20,14 @@
 <script setup lang="ts">
 import { onMounted, ref, onUnmounted } from 'vue';
 import { ipcRenderer } from 'electron';
+import { getIsMaximized, hideWindow, maxmizeWindow, minimizeWindow, unmaximizeWindow } from '@/renderer/api/main/ipc';
 
 const isMaximized = ref(false); // 是否是最大化
 
-// 关闭窗口
-const closeWindow = () => {
-  ipcRenderer.invoke('hideWindow');
-};
-
-// 窗口最大化
-const maxmizeMainWin = () => {
-  ipcRenderer.invoke('maxmizeWindow');
-};
-
-// 窗口最小化
-const minimizeMainWindow = () => {
-  ipcRenderer.invoke('minimizeWindow');
-};
-
-// 取消窗口最大化
-const unmaximizeMainWindow = () => {
-  ipcRenderer.invoke('unmaximizeWindow');
-};
+// 获取窗口时候已经最大化
+getIsMaximized().then((res) => {
+  isMaximized.value = res;
+});
 
 const winMaximizeEvent = () => {
   isMaximized.value = true;

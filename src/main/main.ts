@@ -17,10 +17,10 @@ process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
  * 每当有一个窗口被创建成功后，这个事件就会被触发，
  */
 app.on('browser-window-created', (e, win) => {
-  // 监听窗口打开
-  CommonWindowEvent.regWinEvent(win);
   // 注册窗口快捷键
   CommonWindowEvent.regShortcuts(win);
+  // 监听窗口打开
+  CommonWindowEvent.regWinEvent(win);
 });
 
 let mainWindow: BrowserWindow | null;
@@ -36,6 +36,7 @@ app.whenReady().then(() => {
   mainWindow = new BrowserWindow({
     ...windowConfig,
     show: false,
+    frame: false,
     width: 800,
     height: 550,
     minWidth: 800,

@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, app, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
+import { BrowserWindow, ipcMain, app, Menu, MenuItem, MenuItemConstructorOptions, shell, dialog, OpenDialogSyncOptions } from 'electron';
 import { windowConfig } from '@/main/common/window.config';
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -91,6 +91,34 @@ export class CommonWindowEvent {
       return app.getPath(name);
     });
 
+    /**
+     * 打开指定目录
+     */
+    ipcMain.handle('openDirectory', async (e, dir: string) => {
+      if (dir) {
+        await shell.openPath(dir);
+      }
+      return '';
+    });
+
+    /**
+     * 获取窗口是否最大化
+     */
+    ipcMain.handle('getIsMaximized', (e) => {
+      return this.getWin(e)?.isMaximized();
+    });
+
+    /**
+     * 打开选择文件或文件夹对话框
+     */
+    ipcMain.handle('showOpenDialogSync', (e, { options, modal = true }: { options: OpenDialogSyncOptions; modal: boolean }): string[] | undefined => {
+      // return dialog.showOpenDialogSync(options);
+      if (modal) {
+        return dialog.showOpenDialogSync(this.getWin(e) as BrowserWindow, options);
+      }
+      return dialog.showOpenDialogSync(options);
+    });
+
     // ipcMain.on('')
   }
 
@@ -110,23 +138,33 @@ export class CommonWindowEvent {
     });
 
     // win.webContents.openDevTools({ mode: 'undocked' }); // 打开调试控制台
-
     win.webContents.setWindowOpenHandler((param) => {
-      const config = JSON.parse(JSON.stringify({ ...windowConfig, show: true }));
-      // 开发者自定义窗口配置对象
-      const features = JSON.parse(param.features);
-      Object.keys(features).forEach((p) => {
-        if (p === 'webPreferences') {
-          Object.keys(features.webPreferences).forEach((p2) => {
-            config.webPreferences[p2] = features.webPreferences[p2];
-          });
-        } else {
-          config[p] = features[p];
-        }
-      });
-      if (config.modal === true) config.parent = win;
-      // 允许打开窗口，并传递窗口配置对象
-      return { action: 'allow', overrideBrowserWindowOptions: config };
+      try {
+        const config = JSON.parse(JSON.stringify({ ...windowConfig, show: true }));
+        // 开发者自定义窗口配置对象
+        const features = JSON.parse(param.features);
+        Object.keys(features).forEach((p) => {
+          if (p === 'webPreferences') {
+            Object.keys(features.webPreferences).forEach((p2) => {
+              config.webPreferences[p2] = features.webPreferences[p2];
+            });
+          } else {
+            config[p] = features[p];
+          }
+        });
+        if (config.modal === true) config.parent = win;
+        // 允许打开窗口，并传递窗口配置对象
+        return { action: 'allow', overrideBrowserWindowOptions: config };
+      } catch (e) {
+        // 当解析数据出错说明打开的不是自己编写的脚本及页面
+        return {
+          action: 'allow',
+          overrideBrowserWindowOptions: {
+            autoHideMenuBar: true, // 关闭带单栏
+            nodeIntegration: false // 不允许在渲染进程使用node
+          }
+        };
+      }
     });
   }
 }

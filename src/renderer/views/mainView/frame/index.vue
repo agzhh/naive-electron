@@ -20,12 +20,12 @@ const menuDefaultValue = ref(route.path);
 
 const options: MenuOption[] = [
   {
-    label: () => h(NEllipsis, null, { default: () => '文件' }),
-    key: '/mainView/frame/file'
+    label: () => h(NEllipsis, null, { default: () => '哔哩哔哩' }),
+    key: '/mainView/frame/view'
   },
   {
-    label: () => h(NEllipsis, null, { default: () => '视图' }),
-    key: '/mainView/frame/view'
+    label: () => h(NEllipsis, null, { default: () => '文件' }),
+    key: '/mainView/frame/file'
   }
 ];
 
@@ -43,16 +43,18 @@ const selectMenu = (key: string) => {
 
   .frame-left {
     width: 180px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%;
     box-sizing: border-box;
     background-color: #ffffff;
+    border-right: 1px solid #e6e6e6;
   }
   .frame-right {
     flex: 1;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
+    box-sizing: border-box;
   }
 }
 </style>
