@@ -2,7 +2,7 @@
   <div>其他</div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'index'
 };

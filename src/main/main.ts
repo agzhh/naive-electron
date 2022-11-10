@@ -1,8 +1,9 @@
 import { app, BrowserWindow } from 'electron';
-import { CustomScheme } from './CustomScheme';
-import { CommonWindowEvent } from './CommonWindowEvent';
+import { CustomScheme } from '@/main/CustomScheme';
+import { CommonWindowEvent } from '@/main/CommonWindowEvent';
 import { windowConfig } from '@/main/common/window.config';
 import { CommonTray } from '@/main/CommonTray';
+import { mainLogger } from '@/main/common/log';
 
 /**
  * ELECTRON_DISABLE_SECURITY_WARNINGS 用于设置渲染进程开发者调试工具的警告，这里设置为 true 就不会再显示任何警告了。
@@ -33,6 +34,7 @@ if (!gotTheLock) {
 
 // 当 electron 初始化完成
 app.whenReady().then(() => {
+  mainLogger.info('=====> 主程序初始化完成');
   mainWindow = new BrowserWindow({
     ...windowConfig,
     show: false,
@@ -66,6 +68,27 @@ app.whenReady().then(() => {
   });
 
   mainWindow.on('closed', () => {
+    mainLogger.info('=====> 系统退出');
     mainWindow = null;
   });
+});
+
+// 全局捕获异常
+process.on('uncaughtException', function (error) {
+  mainLogger.error('全局捕获到异常', error.message);
+});
+
+// GPU进程崩溃
+app.on('gpu-process-crashed', function () {
+  mainLogger.error('GPU进程崩溃，程序退出');
+  app.exit(0);
+});
+
+// 当所有窗口被关闭了，退出
+app.on('window-all-closed', function () {
+  // 在 OS X 上，通常用户在明确地按下 Cmd + Q 之前
+  // 应用会保持活动状态
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });

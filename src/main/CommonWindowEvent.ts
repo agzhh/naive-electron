@@ -1,5 +1,7 @@
 import { BrowserWindow, ipcMain, app, Menu, MenuItem, MenuItemConstructorOptions, shell, dialog, OpenDialogSyncOptions } from 'electron';
 import { windowConfig } from '@/main/common/window.config';
+import { getConfig } from '@/main/common/conf';
+import { mainLogger } from '@/main/common/log';
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class CommonWindowEvent {
@@ -112,11 +114,18 @@ export class CommonWindowEvent {
      * 打开选择文件或文件夹对话框
      */
     ipcMain.handle('showOpenDialogSync', (e, { options, modal = true }: { options: OpenDialogSyncOptions; modal: boolean }): string[] | undefined => {
-      // return dialog.showOpenDialogSync(options);
       if (modal) {
         return dialog.showOpenDialogSync(this.getWin(e) as BrowserWindow, options);
       }
       return dialog.showOpenDialogSync(options);
+    });
+
+    /**
+     * 获取本地系统变量配置
+     */
+    ipcMain.handle('getLocalConf', async () => {
+      const localConf = await getConfig();
+      return localConf;
     });
 
     // ipcMain.on('')
@@ -154,16 +163,20 @@ export class CommonWindowEvent {
         });
         if (config.modal === true) config.parent = win;
         // 允许打开窗口，并传递窗口配置对象
-        return { action: 'allow', overrideBrowserWindowOptions: config };
+        const winConf: any = { action: 'allow', overrideBrowserWindowOptions: config };
+        mainLogger.info('监听到本系统新窗口打开，窗口配置消息为 ===》', JSON.stringify(winConf));
+        return winConf;
       } catch (e) {
         // 当解析数据出错说明打开的不是自己编写的脚本及页面
-        return {
+        const winConf: any = {
           action: 'allow',
           overrideBrowserWindowOptions: {
             autoHideMenuBar: true, // 关闭带单栏
             nodeIntegration: false // 不允许在渲染进程使用node
           }
         };
+        mainLogger.warn('监听到第三方打开新窗口，窗口配置消息为 ===》', JSON.stringify(winConf));
+        return winConf;
       }
     });
   }

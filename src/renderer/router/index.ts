@@ -12,7 +12,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'frame',
         meta: { title: '框架' },
-        redirect: '/mainView/frame/file',
+        redirect: '/mainView/frame/view',
         component: () => import('@/renderer/views/mainView/frame/index.vue'),
         children: [
           {
@@ -24,6 +24,11 @@ const routes: RouteRecordRaw[] = [
             path: 'view',
             meta: { title: '视图' },
             component: () => import('@/renderer/views/mainView/frame/view/index.vue')
+          },
+          {
+            path: 'local',
+            meta: { title: '本地配置' },
+            component: () => import('@/renderer/views/mainView/frame/local/index.vue')
           }
         ]
       },

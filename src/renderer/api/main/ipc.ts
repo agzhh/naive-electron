@@ -57,3 +57,11 @@ export function showOpenDialogSync({ options, modal = true }: { options: OpenDia
 export function openDirectory(dir: string) {
   return ipcRenderer.invoke('openDirectory', dir);
 }
+
+/**
+ * 获取本地系统变量配置
+ * @param dir
+ */
+export function getLocalConf() {
+  return ipcRenderer.invoke('getLocalConf');
+}

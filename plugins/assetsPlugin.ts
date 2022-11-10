@@ -21,27 +21,10 @@ const copy = (sd, td) => {
     }
     // !file.isDirectory() && fs.copyFileSync(srcFile, tagFile, fs.constants.COPYFILE_FICLONE);
     if (file.isFile()) {
-      console.log('===========');
       fs.copyFileSync(srcFile, tagFile, fs.constants.COPYFILE_FICLONE);
     }
   }
 };
-//
-// const run = async () => {
-//   const startTime = await new Date().getTime()
-//   console.log(!fs.existsSync(sourceDir),)
-//   if (!fs.existsSync(sourceDir)) {
-//     throw error('no such file or directory')
-//   } else if (!fs.existsSync(targetDir)) {
-//     await fs.mkdirSync(targetDir, err => console.log(err))
-//     await copy(sourceDir, targetDir)
-//   } else {
-//     await copy(sourceDir, targetDir)
-//   }
-//
-//   const endTime = await new Date().getTime()
-//   console.log("耗时:", ((endTime - startTime) / 1000).toFixed(2) + "s");
-// }
 
 const runCopy = async () => {
   const srcPath = path.join(process.cwd(), 'src/main/mainAssets');

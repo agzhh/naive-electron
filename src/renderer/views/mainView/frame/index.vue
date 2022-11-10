@@ -24,8 +24,12 @@ const options: MenuOption[] = [
     key: '/mainView/frame/view'
   },
   {
-    label: () => h(NEllipsis, null, { default: () => '文件' }),
+    label: () => h(NEllipsis, null, { default: () => '文件查看' }),
     key: '/mainView/frame/file'
+  },
+  {
+    label: () => h(NEllipsis, null, { default: () => '本地系统配置' }),
+    key: '/mainView/frame/local'
   }
 ];
 
